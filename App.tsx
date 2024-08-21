@@ -10,8 +10,9 @@ i18next
   .use(i18nextHttpBackend)
   .init<HttpBackendOptions>({
     backend: {
-      loadPath: "https://jsonplaceholder.typicode.com/posts/1",
+      loadPath: "https://random-data-api.com/api/v2/users",
       parse(data) {
+        console.log("called parse");
         return JSON.parse(data);
       },
     },
@@ -23,6 +24,7 @@ i18next
       useSuspense: false,
     },
     compatibilityJSON: "v3",
+    debug: true,
   });
 
 export default function App() {
@@ -33,6 +35,7 @@ export default function App() {
       if (state === "active") {
         i18next.reloadResources().then(() => {
           console.log("reloaded");
+          i18next.changeLanguage("en");
         });
       }
     });
@@ -44,7 +47,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>title: {t("title")}</Text>
+      <Text>first name: {t("first_name")}</Text>
       <StatusBar style="auto" />
     </View>
   );
